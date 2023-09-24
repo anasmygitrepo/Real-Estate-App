@@ -1,3 +1,36 @@
-.cad-img {
+.card img {
+  overflow: hidden;
+  transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
   height: 250px;
+}
+.card img:hover {
+  cursor: pointer;
+  transform: scale(1.2, 1.2);
+  transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
+  opacity: 0.5;
+}
+
+.card-img-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.btn-over-the-image {
+  position: absolute;
+  bottom: -10;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+  opacity: 0;
+}
+.card-img-wrapper:hover .btn-over-the-image {
+  bottom: 0;
+  opacity: 1;
+}
+
+.animate {
+  transition: all 0.3s ease-in-out;
 }

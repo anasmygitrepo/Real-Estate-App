@@ -1,0 +1,54 @@
+[
+  {
+    "Id": 1,
+    "Name": "Dreamhomes",
+    "Type": "Home",
+    "Price": 20000,
+    "Place": "kochin",
+    "SellRent": 1,
+    "Image": "home1.jpg"
+  },
+  {
+    "Id": 2,
+    "Name": "Dreamhomes",
+    "Type": "Home",
+    "Price": 70000,
+    "Place": "kochin",
+    "SellRent": 1
+  },
+  {
+    "Id": 3,
+    "Name": "CenterShops",
+    "Type": "complex",
+    "Price": 100000,
+    "Place": "kochin",
+    "SellRent": 1
+  },
+  {
+    "Id": 4,
+    "Name": "Greenvilla",
+    "Type": "Villa",
+    "Price": 50000,
+    "Place": "palakkad",
+    "SellRent": 2,
+    "Image": "villa1.jpg"
+  },
+  {
+    "Id": 5,
+    "Name": "Confidential flat",
+    "Type": "Flat",
+    "Price": 50000,
+    "Place": "malappuram",
+    "SellRent": 2,
+    "Image": "flat1.jpg"
+  },
+  {
+    "Id": 6,
+    "Name": "Dreamhomes",
+    "Type": "Home",
+    "Price": 60000,
+    "Place": "koczikode",
+    "SellRent": 2,
+    "Image": "home2.jpg"
+  }
+]

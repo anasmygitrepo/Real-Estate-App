@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-6 m-auto">
+    <div class="card m-auto">
+      <div class="card-header">Register</div>
+      <div class="card-body">
+        <form [formGroup]="RegistrationForm" (ngSubmit)="Onsubmit()">
+          <div class="form-group col-12">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="UserName"
+            />
+            <span
+              class="error-block"
+              *ngIf="
+                !GetUsername.valid && (GetUsername.touched || UserSubmited)
+              "
+            >
+              <span *ngIf="GetUsername.hasError('required')">
+                UserName is required
+              </span>
+              <!-- <span *ngIf="GetUsername.hasError('minlength')">
+                At least 5 charecters required
+              </span> -->
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" formControlName="Email" />
+            <span
+              *ngIf="!GetEmail.valid && (GetEmail.touched || UserSubmited)"
+              class="error-block"
+            >
+              <span *ngIf="GetEmail.hasError('required')">
+                Email is required
+              </span>
+              <span *ngIf="GetEmail.hasError('email')">
+                Enter a valid email
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="passwrod" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="Password"
+            />
+            <span
+              *ngIf="
+                !GetPassword.valid && (GetPassword.touched || UserSubmited)
+              "
+              class="error-block"
+            >
+              <span *ngIf="GetPassword.hasError('required')">
+                Password is required
+              </span>
+              <span *ngIf="GetPassword.hasError('minlength')">
+                Password must be atleast 8 charecters
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="cpassword" class="form-label">Confirm Password</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="ConfirmPassword"
+            />
+            <span
+              *ngIf="
+                !GetConfirmPassword.valid &&
+                (GetConfirmPassword.touched || UserSubmited)
+              "
+              class="error-block"
+            >
+              <span *ngIf="GetConfirmPassword.hasError('required')">
+                This field is required
+              </span>
+            </span>
+            <span
+              class="error-block"
+              *ngIf="
+                RegistrationForm.hasError('notmatched') &&
+                GetConfirmPassword.valid
+              "
+            >
+              Pssword not matched
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="mobile" class="form-label">Mobile</label>
+            <input
+              id="mob"
+              type="text"
+              class="form-control"
+              formControlName="Mobaile"
+            />
+            <span
+              *ngIf="!GetMobail.valid && (GetMobail.touched || UserSubmited)"
+              class="error-block"
+            >
+              <span *ngIf="GetMobail.hasError('required')">
+                This field is required
+              </span>
+              <span *ngIf="GetMobail.hasError('minlength')">
+                Mobile number must be atleast 10
+              </span>
+              <span *ngIf="GetMobail.hasError('maxlength')">
+                Mobile number not morthan 10
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group col-12 mt-5">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn btn-secondary m-2">Cancel</button>
+          </div>
+        </form>
+        <!-- {{ RegistrationForm.value | json }}<br />
+        {{ RegistrationForm.valid | json }} -->
+      </div>
+    </div>
+  </div>
+</div>

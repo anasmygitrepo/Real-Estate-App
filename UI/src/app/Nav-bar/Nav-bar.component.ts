@@ -3,13 +3,17 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-Nav-bar',
   templateUrl: './Nav-bar.component.html',
-  styleUrls: ['./Nav-bar.component.css']
+  styleUrls: ['./Nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  UserLogin() {
+    return localStorage.getItem('Token');
   }
-
+  UserLogOut() {
+    localStorage.removeItem('Token');
+  }
 }
