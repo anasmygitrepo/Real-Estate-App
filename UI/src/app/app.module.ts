@@ -1,4 +1,8 @@
-import { NgModule } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+  NgModule,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,6 +20,11 @@ import { UserLoginComponent } from './User/user-login/user-login.component';
 import { UserRegisterComponent } from './User/user-register/user-register.component';
 import { AlertyfyService } from './services/Alertyfy.service';
 import { AuthService } from './services/Auth.service';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const Approuts: Routes = [
   {
@@ -61,14 +70,20 @@ const Approuts: Routes = [
     UserRegisterComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+    TabsModule.forRoot(),
+    ButtonsModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(Approuts),
+
     FormsModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [HousingService, AlertyfyService, AuthService],
   bootstrap: [AppComponent],
 })

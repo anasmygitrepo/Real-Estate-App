@@ -38,7 +38,7 @@
             class="nav-link"
             routerLinkActive="active"
             routerLink="/add-property"
-            >Property(free)</a
+            >List Property(free)</a
           >
         </li>
       </ul>
@@ -62,14 +62,47 @@
               >Login</a
             >
           </li>
-          <li class="nav-item">
-            <a
-              *ngIf="UserLogin()"
-              (click)="UserLogOut()"
-              routerLinkActive="active"
-              class="nav-link"
-              >Logout</a
-            >
+          <li>
+            <div *ngIf="UserLogin()" class="dropdown">
+              <a
+                (click)="(false)"
+                class="dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Welcome {{ CurrentUser }}
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <i
+                      style="margin-right: 5px"
+                      class="fas fa-tachometer-alt"
+                    ></i
+                    >View Dashbord</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <i style="margin-right: 5px" class="fas fa-user-circle"></i
+                    >My profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <i style="margin-right: 5px" class="fas fa-key"></i>Change
+                    Password</a
+                  >
+                </li>
+                <li>
+                  <a (click)="UserLogOut()" class="dropdown-item" href="#">
+                    <i style="margin-right: 5px" class="fas fa-sign-out-alt"></i
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
       </div>

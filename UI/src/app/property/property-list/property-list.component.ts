@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HousingService } from 'src/app/services/housing.service';
 import { Iproperty } from './Iproperty';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IpropertyBase } from 'src/app/Models/IpropertyBase';
 
 @Component({
   selector: 'app-property-list',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./property-list.component.css'],
 })
 export class PropertyListComponent implements OnInit {
-  propertes: Array<Iproperty>;
+  propertes: Array<IpropertyBase>;
 
   SellRent = 1;
   constructor(
@@ -23,6 +24,10 @@ export class PropertyListComponent implements OnInit {
     }
     this.service.GetPropertyData(this.SellRent).subscribe((data) => {
       this.propertes = data;
+      const new_propertys = JSON.parse(localStorage.getItem('Newprop'));
+      if (new_propertys.SellRent === this.SellRent) {
+        this.propertes = [new_propertys, ...this.propertes];
+      }
     });
   }
 }

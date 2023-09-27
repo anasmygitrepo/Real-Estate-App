@@ -4,6 +4,18 @@
   transition-timing-function: ease-in-out;
   height: 250px;
 }
+.card h3 {
+  font-family: fantasy;
+  color: rgb(134, 134, 176);
+}
+.card #price {
+  color: green;
+  font-weight: bold;
+}
+.card #squr {
+  color: rgb(194, 45, 45);
+  font-weight: bold;
+}
 .card img:hover {
   cursor: pointer;
   transform: scale(1.2, 1.2);

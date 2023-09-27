@@ -36,23 +36,7 @@ export class UserRegisterComponent implements OnInit {
           'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js',
       });
     }
-    // this.RegistrationForm = new FormGroup(
-    //   {
-    //     UserName: new FormControl('', Validators.required),
-    //     Email: new FormControl(null, [Validators.required, Validators.email]),
-    //     Password: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.minLength(8),
-    //     ]),
-    //     ConfirmPassword: new FormControl(null, [Validators.required]),
-    //     Mobaile: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.maxLength(10),
-    //       Validators.minLength(10),
-    //     ]),
-    //   },
-    //   this.PasswordMatchingVlidatore
-    // );
+
     this.CreateRegistrationForm();
   }
 
