@@ -12,12 +12,31 @@ export class HousingService implements OnInit {
   constructor(private http: HttpClient) {}
   ngOnInit(): void {}
 
-  GetPropertyData(SellRent: number): Observable<Property[]> {
+  GetPropertyData(SellRent?: number): Observable<Property[]> {
     return this.http.get('data/property.json').pipe(
       map((data) => {
         const PropertyArray: Array<Property> = [];
+        if (localStorage.getItem('Newprop')) {
+          const LocalStrData = JSON.parse(localStorage.getItem('Newprop'));
+          for (const id in LocalStrData) {
+            if (SellRent) {
+              if (
+                LocalStrData.hasOwnProperty(id) &&
+                LocalStrData[id].SellRent === SellRent
+              ) {
+                PropertyArray.push(LocalStrData[id]);
+              }
+            } else {
+              PropertyArray.push(LocalStrData[id]);
+            }
+          }
+        }
         for (const id in data) {
-          if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
+          if (SellRent) {
+            if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
+              PropertyArray.push(data[id]);
+            }
+          } else {
             PropertyArray.push(data[id]);
           }
         }
@@ -25,7 +44,36 @@ export class HousingService implements OnInit {
       })
     );
   }
+
+  //Getting A single property
+
+  GetProperty(Proid: number) {
+    return this.GetPropertyData().pipe(
+      map((prop) => {
+        return prop.find((p) => p.Id === Proid);
+      })
+    );
+  }
+
+  //Adding multiple property arrays  in local storage.....................
   AddProperty(property: Property) {
-    localStorage.setItem('Newprop', JSON.stringify(property));
+    let newprop = [property];
+    if (localStorage.getItem('Newprop')) {
+      newprop = [property, ...JSON.parse(localStorage.getItem('Newprop'))];
+    }
+    localStorage.setItem('Newprop', JSON.stringify(newprop));
+  }
+  //generating ID for each property...............
+  PropIdGeneratore() {
+    if (localStorage.getItem('PROPID')) {
+      localStorage.setItem(
+        'PROPID',
+        String(+localStorage.getItem('PROPID') + 1)
+      );
+      return +localStorage.getItem('PROPID');
+    } else {
+      localStorage.setItem('PROPID', '101');
+      return 101;
+    }
   }
 }

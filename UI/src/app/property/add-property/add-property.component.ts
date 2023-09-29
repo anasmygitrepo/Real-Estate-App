@@ -88,32 +88,6 @@ export class AddPropertyComponent implements OnInit {
       }),
     });
   }
-  mapProperty(): void {
-    this.property.SellRent = +this.GetSellRent.value;
-    this.property.BHK = this.GetBHK.value;
-    this.property.Ptype = this.GetPType.value;
-    this.property.Name = this.GetName.value;
-    this.property.City = this.GetCity.value;
-    this.property.Price = this.GetPrice.value;
-    this.property.Sequirity = this.GetSequrity.value;
-    this.property.Maintenance = this.GetMaintance.value;
-    this.property.BuiltArea = this.GetBuiltAria.value;
-    this.property.CarpetAria = this.GetCarpetArea.value;
-    this.property.FlorNo = this.GetFlorNo.value;
-    this.property.TotalFloor = this.GetTotalFloor.value;
-    this.property.Address = this.GetAddress.value;
-    this.property.Address2 = this.GetAddress2.value;
-    this.property.RTM = this.GetRTM.value;
-    this.property.RTMDirection = this.GetRTMDirection.value;
-    this.property.AOP = this.GetAOP.value;
-    this.property.Gated = this.GetGated.value;
-    this.property.Maintenance = this.GetMaintance.value;
-    this.property.PossionOn = this.GetPossionOn.value;
-    this.property.Description = this.GetDescription.value;
-    this.property.postedBy = this.GetPostedBy.value;
-
-    this.property.PostedOn = new Date().toString();
-  }
 
   //#region // accessingGrups...............................................................
 
@@ -211,6 +185,36 @@ export class AddPropertyComponent implements OnInit {
   }
   get GetDescription() {
     return this.OtherInfo.controls['Description'] as FormControl;
+  }
+
+  mapProperty(): void {
+    this.property.Id = this.HousingService.PropIdGeneratore();
+    this.property.SellRent = +this.GetSellRent.value;
+    this.property.BHK = this.GetBHK.value;
+    this.property.Ptype = this.GetPType.value;
+    this.property.Ftype = this.GetFType.value;
+    this.property.Name = this.GetName.value;
+    this.property.City = this.GetCity.value;
+    this.property.Price = this.GetPrice.value;
+    this.property.Sequirity = this.GetSequrity.value;
+    this.property.Maintenance = this.GetMaintance.value;
+    this.property.BuiltArea = this.GetBuiltAria.value;
+    this.property.CarpetAria = this.GetCarpetArea.value;
+    this.property.FlorNo = this.GetFlorNo.value;
+    this.property.TotalFloor = this.GetTotalFloor.value;
+    this.property.Address = this.GetAddress.value;
+    this.property.LandMark = this.GetLandMark.value;
+    this.property.Address2 = this.GetAddress2.value;
+    this.property.RTM = this.GetRTM.value;
+    this.property.RTMDirection = this.GetRTMDirection.value;
+    this.property.AOP = this.GetAOP.value;
+    this.property.Gated = this.GetGated.value;
+    this.property.Maintenance = this.GetMaintance.value;
+    this.property.PossionOn = this.GetPossionOn.value;
+    this.property.Description = this.GetDescription.value;
+    this.property.postedBy = this.GetPostedBy.value;
+
+    this.property.PostedOn = new Date().toString();
   }
 
   submitForm() {

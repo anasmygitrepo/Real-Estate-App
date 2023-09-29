@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HousingService } from 'src/app/services/housing.service';
-import { Iproperty } from './Iproperty';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IpropertyBase } from 'src/app/Models/IpropertyBase';
 
 @Component({
@@ -10,9 +9,16 @@ import { IpropertyBase } from 'src/app/Models/IpropertyBase';
   styleUrls: ['./property-list.component.css'],
 })
 export class PropertyListComponent implements OnInit {
+  SearchCity = '';
+  City = '';
+  SortParams = '';
+  SortDirection = 'asc';
+  Today = new Date();
   propertes: Array<IpropertyBase>;
 
+  //SELLRENT=1  is listing all the propertys for buying
   SellRent = 1;
+
   constructor(
     private router: ActivatedRoute,
     private service: HousingService
@@ -20,14 +26,25 @@ export class PropertyListComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.snapshot.url.toString()) {
+      //SELLRENT=2  is listing all the propertys for Rend
       this.SellRent = 2;
     }
     this.service.GetPropertyData(this.SellRent).subscribe((data) => {
       this.propertes = data;
-      const new_propertys = JSON.parse(localStorage.getItem('Newprop'));
-      if (new_propertys.SellRent === this.SellRent) {
-        this.propertes = [new_propertys, ...this.propertes];
-      }
     });
+  }
+  SerchCity() {
+    this.SearchCity = this.City;
+  }
+  ClearFilter() {
+    this.City = '';
+    this.SearchCity = '';
+  }
+  changeSortDirection() {
+    if (this.SortDirection === 'desc') {
+      this.SortDirection = 'asc';
+    } else {
+      this.SortDirection = 'desc';
+    }
   }
 }

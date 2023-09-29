@@ -203,7 +203,13 @@
 
                 <div *ngIf="GetSellRent.value == 2" class="form-group col-12">
                   <label>Security (in USD)</label>
-                  <input type="text" class="form-control" />
+                  <input
+                    formControlName="Sequrity"
+                    [ngModelOptions]="{ standalone: true }"
+                    type="text"
+                    class="form-control"
+                    name="sequrity"
+                  />
                 </div>
 
                 <div *ngIf="GetSellRent.value == 2" class="form-group col-12">
@@ -213,6 +219,7 @@
                     name="Builtarea"
                     type="text"
                     class="form-control"
+                    formControlName="Maintance"
                   />
                 </div>
 

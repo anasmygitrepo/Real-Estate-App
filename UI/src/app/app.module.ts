@@ -23,8 +23,11 @@ import { AuthService } from './services/Auth.service';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PropertyDetailResolverService } from './property/property-detail/property-detail-resolver.service';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { FilterPipe } from './Pipes/Filter.pipe';
+import { SortPipe } from './Pipes/sort.pipe';
 
 const Approuts: Routes = [
   {
@@ -42,6 +45,7 @@ const Approuts: Routes = [
   {
     path: 'property-detail/:Id',
     component: PropertyDetailComponent,
+    resolve: { prp: PropertyDetailResolverService },
   },
   {
     path: 'user/register',
@@ -68,6 +72,8 @@ const Approuts: Routes = [
     PageNotFoundComponent,
     UserLoginComponent,
     UserRegisterComponent,
+    FilterPipe,
+    SortPipe,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -80,11 +86,17 @@ const Approuts: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(Approuts),
+    NgxGalleryModule,
 
     FormsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  providers: [HousingService, AlertyfyService, AuthService],
+  providers: [
+    HousingService,
+    AlertyfyService,
+    AuthService,
+    PropertyDetailResolverService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

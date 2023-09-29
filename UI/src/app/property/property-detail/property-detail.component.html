@@ -1,6 +1,120 @@
-<p>property-detail works!</p>
+<div class="row shadow">
+  <div class="col-sm-4 p-0">
+    <div class="card">
+      <div class="card-image-wrapper">
+        <img
+          class="card-img-top"
+          src="assets/images/{{ property.Image }}"
+          onerror="this.src='assets/images/default.png'"
+        />
+      </div>
+      <div class="card-body">
+        <H3 class="card-tittle">{{ property.Name }}</H3>
+        <div>
+          <strong
+            >{{ property.BHK }} BHK In {{ property.Ptype }} @
+            {{ property.Price }} USD</strong
+          >
+        </div>
+        <div>
+          <strong>In {{ property.City }}</strong>
+        </div>
+        <hr />
+        <div>
+          <strong>Build Area: {{ property.BuiltArea }} sqft</strong>
+        </div>
+        <div>
+          <strong> Carpet Aria: {{ property.CarpetAria }} sqft </strong>
+        </div>
+        <div>
+          <strong> Finishing Type: {{ property.Ftype }} </strong>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary">Like</button>
+          <button class="btn btn-success">Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8 p-0">
+    <div class="tab-panel">
+      <tabset class="memeber-tabset">
+        <tab heading="Overview">
+          <div class="row">
+            <h3>Overview</h3>
+            <div class="col-sm-6">
+              <div class="heading">
+                <strong>project name</strong>
+                <p>{{ property.Name }}</p>
+              </div>
+              <div class="heading">
+                <strong>Floor number</strong>
+                <p>{{ property.FlorNo }}</p>
+              </div>
+              <div class="heading">
+                <strong>Project Age</strong>
+                <p>{{ property.AOP }}</p>
+              </div>
+              <div class="heading">
+                <strong>PossetioOn</strong>
+                <p>{{ property.PossionOn }}</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="heading">
+                <strong>Main Entrance</strong>
+                <p>{{ property.RTMDirection }}</p>
+              </div>
 
-<p>selected property id:{{ PropertyId }}</p>
-<button (click)="IncrimentPropertyId()" class="btn btn-primary">Inc-Id</button>
+              <div class="heading">
+                <strong>Gated Community</strong>
+                <p>{{ property.Gated }}</p>
+              </div>
 
-<button routerLink="/property-detail/2" class="btn btn-primary">page:1</button>
+              <div class="heading">
+                <strong>Security Deposit</strong>
+                <p>{{ property.Sequirity }}</p>
+              </div>
+              <div class="heading">
+                <strong>Maintenance</strong>
+                <p>{{ property.Maintenance }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="heading">
+              <strong>Description</strong>
+              <p>{{ property.Description }}</p>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Address">
+          <div class="col-sm-12">
+            <h1>Address</h1>
+            <div class="heading">
+              <strong>{{ property.Address }}</strong
+              ><br />
+              <strong> {{ property.Address2 }}</strong
+              ><br />
+              <strong>{{ property.City }}</strong>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Photo" class="p-3">
+          <ngx-gallery
+            [options]="galleryOptions"
+            [images]="galleryImages"
+            class="ngx-gallery"
+          ></ngx-gallery>
+        </tab>
+        <tab heading="Contact">
+          <h1>Contact Detail</h1>
+          This should be restricted area and only registered user should be able
+          to see seller contact details
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
