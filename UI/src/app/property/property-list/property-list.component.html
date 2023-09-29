@@ -13,9 +13,10 @@
       clear
     </button>
     <select class="form-select" [(ngModel)]="SortParams">
-      <option selected>Filtter</option>
+      <option selected><i class="fa-light fa-filter"></i></option>
       <option value="City">City</option>
       <option value="Price">Price</option>
+      <span class="material-icons"> filter_alt </span>
     </select>
     <button (click)="changeSortDirection()" class="btn btn-primary">
       <i *ngIf="SortDirection === 'asc'" class="fas fa-sort-alpha-down"></i>
