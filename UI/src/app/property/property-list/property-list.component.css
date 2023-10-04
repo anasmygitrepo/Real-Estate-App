@@ -1,5 +1,10 @@
+#rww {
+  margin-right: 0;
+  margin-left: 0;
+}
+
 .shadow-lg {
-  margin-left: 80px;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -14,11 +19,13 @@
   border-bottom-left-radius: 0%;
 }
 #City-inp {
-  width: 300px;
   border-top-right-radius: 0%;
   border-bottom-right-radius: 0%;
 }
 .form-select {
   margin-left: 10px;
   width: 200px;
+}
+
+#listprop {
 }

@@ -1,5 +1,5 @@
 <div class="row">
-  <div style="display: flex">
+  <div class="col-sm-8" style="display: flex">
     <input
       id="City-inp"
       [(ngModel)]="City"
@@ -32,8 +32,18 @@
         | filterPipe : SearchCity : 'City'
         | sort : [SortParams, SortDirection]
     "
-    class="shadow-lg col-sm-3 p-3"
+    class="shadow-lg col-sm-4 p-2"
+    id="listprop"
   >
     <app-property-card [property]="pro"></app-property-card>
   </div>
 </div>
+
+<!-- <div class="col-sm-4">
+  <div class="card card-header">
+    <h3>Your property preview</h3>
+  </div>
+  <div class="col-sm-12 shadow-lg p-3 bg-white">
+    <app-property-card> </app-property-card>
+  </div>
+</div> -->

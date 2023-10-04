@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-8 shadow-lg bg-weight mb-5">
+  <div class="col-sm-8 shadow-lg bg-weight mb-5">
     <div class="card">
       <div class="card-header">
         <h3>Add Property</h3>
@@ -148,13 +148,26 @@
                 </div>
                 <div class="form-group col-12">
                   <label for="City">City</label>
-                  <input
+                  <!-- <input
                     type="text"
                     class="form-control"
                     formControlName="City"
                     [(ngModel)]="PropertyView.City"
                     [ngModelOptions]="{ standalone: true }"
-                  />
+                  /> -->
+                  <select
+                    aria-placeholder="select"
+                    class="form-select"
+                    [(ngModel)]="PropertyView.City"
+                    formControlName="City"
+                  >
+                    <option value="">---Select city---</option>
+                    <option value="{{ city.id }}" *ngFor="let city of Citys">
+                      {{ city.name }}
+                    </option>
+
+                    <span class="material-icons"> filter_alt </span>
+                  </select>
                   <span
                     *ngIf="!GetCity.valid && GetCity.touched"
                     class="error-block"
@@ -530,11 +543,11 @@
       </div>
     </div>
   </div>
-  <div class="col-4">
+  <div class="col-sm-4">
     <div class="card card-header">
       <h3>Your property preview</h3>
     </div>
-    <div class="shadow-lg p-3 bg-white">
+    <div class="col-sm-12 shadow-lg p-3 bg-white">
       <app-property-card [HideIcons]="true" [property]="PropertyView">
       </app-property-card>
     </div>

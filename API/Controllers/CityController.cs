@@ -1,18 +1,136 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+
+using API.Dto;
+using API.Interfaces;
+using API.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CityController : ControllerBase
+    [Authorize]
+    public class CityController : BaseController
     {
-        [HttpGet("")]
-        public IEnumerable <string> GetStrings(){
-            return new string[]{"india","us","america"};
+      
+        private readonly IUnitOfWork Uow;
+        private readonly IMapper mapper;
+        
+        public CityController(IUnitOfWork _uow,IMapper _mapper){
+            mapper = _mapper;
+            this.Uow = _uow;
+        }
+          
+        // [HttpGet("")]
+        // public IEnumerable <string> GetStrings(){
+        //     return new string[]{"india","us","america"};
+        // }
+
+        //Get ALL Cities..........................
+        [HttpGet]
+        public async Task <IActionResult> GetCities()
+        {
+            var cities= await Uow.CityRepository.GetCiteies();
+            // throw new Exception();
+            var CityDto=mapper.Map<IEnumerable<CityDto>>(cities);
+            // var CityDto= from c in cities
+            // select new CityDto(){
+            //     Id=c.Id,
+            //     Name=c.Name
+            // };
+            return Ok(CityDto);
+        }
+
+        
+       
+        //Add cities................................
+        [HttpPost("add-city")]
+         [HttpPost("post")]
+        //  [HttpPost("add-city/{cityname}")]
+        public async Task <ActionResult> AddCity(CityDto DtoCity)
+        {
+
+
+            var city=mapper.Map<City>(DtoCity);
+            city.LastUpdatedBy=1;
+            city.LastUpdatedOn=DateTime.Now;
+            // var city=new City(){
+            //     LastUpdatedBy=1,
+            //     LastUpdatedOn=DateTime.Now,
+            //     Name=DtoCity.Name,
+            // };
+              Uow.CityRepository.AddCity(city);
+            await Uow.SaveAsync();
+            return StatusCode(200);
+
+
+        }
+
+        //updating a city 
+         [HttpPut("update/{id}")]
+        //  [HttpPost("add-city/{cityname}")]
+        public async Task <ActionResult> UpdateCity(int id,CityDto Dto)
+        {
+            
+            if(id!=Dto.Id){
+                return BadRequest("Updation not allowed");
+            }
+            var UpdatingCity=await Uow.CityRepository.FindCity(id);
+            if(UpdatingCity==null){
+                return BadRequest("Upadation not allowed");
+            }
+            UpdatingCity.LastUpdatedBy=1;
+            UpdatingCity.LastUpdatedOn=DateTime.Now;
+            mapper.Map(Dto,UpdatingCity);
+            // throw new UnauthorizedAccessException();
+            await Uow.SaveAsync();
+            return StatusCode(200);
+           
+           
+
+
+        }
+
+        //updating a purticular field in a city table
+        [HttpPut("updatecityName/{id}")]
+        //  [HttpPost("add-city/{cityname}")]
+        public async Task <ActionResult> UpdateCityName(int id,CityUpdateDto Dto)
+        {
+            var UpdatingCity=await Uow.CityRepository.FindCity(id);
+            UpdatingCity.LastUpdatedBy=1;
+            UpdatingCity.LastUpdatedOn=DateTime.Now;
+            mapper.Map(Dto,UpdatingCity);
+            await Uow.SaveAsync();
+            return StatusCode(200);
+
+
+        }
+
+            // [
+            //      {"Name":"New York","path":"/Name","value":"Delhi"} frome post man
+            // ]
+          [HttpPatch("update/{id}")]
+        //  [HttpPost("add-city/{cityname}")]
+        public async Task<ActionResult> UpdateCityPatch(int id, JsonPatchDocument <City> PatchDto)
+        {
+            var UpdatingCity=await Uow.CityRepository.FindCity(id);
+            UpdatingCity.LastUpdatedBy=1;
+            UpdatingCity.LastUpdatedOn=DateTime.Now;
+            PatchDto.ApplyTo(UpdatingCity,ModelState);
+            await Uow.SaveAsync();
+            return StatusCode(200);
+
+
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task <IActionResult> DeleteCity(int id)
+        {
+          Uow.CityRepository.DeleteCity(id);
+           await Uow.SaveAsync();
+            return Ok(id);
         }
     }
 }

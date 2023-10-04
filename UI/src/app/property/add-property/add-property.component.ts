@@ -25,6 +25,8 @@ export class AddPropertyComponent implements OnInit {
   AddProperty_ReactiveForm: FormGroup;
   NextButtonclicked: boolean;
 
+  Citys: any[];
+
   property = new Property();
 
   PropertyType: Array<string> = ['House', 'Apartment', 'Duplex'];
@@ -50,6 +52,10 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() {
     this.CreateAddPropertyForm();
+    this.HousingService.GetCitys().subscribe((data) => {
+      this.Citys = data;
+      console.log(this.Citys);
+    });
   }
 
   CreateAddPropertyForm() {

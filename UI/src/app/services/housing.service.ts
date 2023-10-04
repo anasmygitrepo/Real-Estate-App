@@ -12,6 +12,10 @@ export class HousingService implements OnInit {
   constructor(private http: HttpClient) {}
   ngOnInit(): void {}
 
+  GetCitys(): Observable<string[]> {
+    return this.http.get<string[]>('http://localhost:5075/api/City');
+  }
+
   GetPropertyData(SellRent?: number): Observable<Property[]> {
     return this.http.get('data/property.json').pipe(
       map((data) => {
