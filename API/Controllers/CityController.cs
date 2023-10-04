@@ -20,7 +20,7 @@ namespace API.Controllers
         
         public CityController(IUnitOfWork _uow,IMapper _mapper){
             mapper = _mapper;
-            this.Uow = _uow;
+            Uow = _uow;
         }
           
         // [HttpGet("")]
@@ -34,13 +34,8 @@ namespace API.Controllers
         public async Task <IActionResult> GetCities()
         {
             var cities= await Uow.CityRepository.GetCiteies();
-            // throw new Exception();
             var CityDto=mapper.Map<IEnumerable<CityDto>>(cities);
-            // var CityDto= from c in cities
-            // select new CityDto(){
-            //     Id=c.Id,
-            //     Name=c.Name
-            // };
+          
             return Ok(CityDto);
         }
 
@@ -57,12 +52,7 @@ namespace API.Controllers
             var city=mapper.Map<City>(DtoCity);
             city.LastUpdatedBy=1;
             city.LastUpdatedOn=DateTime.Now;
-            // var city=new City(){
-            //     LastUpdatedBy=1,
-            //     LastUpdatedOn=DateTime.Now,
-            //     Name=DtoCity.Name,
-            // };
-              Uow.CityRepository.AddCity(city);
+            Uow.CityRepository.AddCity(city);
             await Uow.SaveAsync();
             return StatusCode(200);
 
@@ -79,13 +69,13 @@ namespace API.Controllers
                 return BadRequest("Updation not allowed");
             }
             var UpdatingCity=await Uow.CityRepository.FindCity(id);
+
             if(UpdatingCity==null){
                 return BadRequest("Upadation not allowed");
             }
             UpdatingCity.LastUpdatedBy=1;
             UpdatingCity.LastUpdatedOn=DateTime.Now;
             mapper.Map(Dto,UpdatingCity);
-            // throw new UnauthorizedAccessException();
             await Uow.SaveAsync();
             return StatusCode(200);
            
@@ -129,8 +119,8 @@ namespace API.Controllers
         [HttpDelete("delete/{id}")]
         public async Task <IActionResult> DeleteCity(int id)
         {
-          Uow.CityRepository.DeleteCity(id);
-           await Uow.SaveAsync();
+            Uow.CityRepository.DeleteCity(id);
+            await Uow.SaveAsync();
             return Ok(id);
         }
     }

@@ -29,6 +29,17 @@ namespace API.Controllers
 
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> UserRegister (LoginDto LonginReq)
+        {
+            if(await _Uow.UserRepository.UserAlreadyExists(LonginReq.Username)){
+                return BadRequest("user already exisit try another one");
+            }
+            _Uow.UserRepository.Register(LonginReq.Username,LonginReq.Password);
+            await _Uow.SaveAsync();
+
+            return StatusCode(201);
+        }
 
         [HttpPost("login")]
         public async Task<IActionResult> UserLogin (LoginDto LonginReq)
@@ -38,6 +49,7 @@ namespace API.Controllers
             if(user==null){
                 return Unauthorized();
             }
+
             var LoginRes=new LoginResponseDto();
             LoginRes.UserName=user.Username;
             LoginRes.Token=CreaetJWT(user);
@@ -46,27 +58,30 @@ namespace API.Controllers
 
         public string CreaetJWT(User user){
                 
-                var secretkey=_configuration.GetSection("Appsettings:Key").Value;
-                var key=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretkey));
-                var claims=new Claim[]{
+            var secretkey=_configuration.GetSection("Appsettings:Key").Value;
+            var key=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretkey));
+            var claims=new Claim[]
+                {
                     new Claim(ClaimTypes.Name,user.Username),
                     new Claim(ClaimTypes.NameIdentifier,user.Id.ToString())
                 };
 
-                var sigininCredentials=new SigningCredentials(
-                    key,SecurityAlgorithms.HmacSha256Signature
-                );
-                var TokenDescriptor=new SecurityTokenDescriptor{
+            var sigininCredentials=new SigningCredentials(
+                key,SecurityAlgorithms.HmacSha256Signature);
+            var TokenDescriptor=new SecurityTokenDescriptor
+                {
                     Subject=new ClaimsIdentity(claims),
                     Expires=DateTime.UtcNow.AddDays(5),
                     SigningCredentials=sigininCredentials
                 };
 
-                var tokenHandeler=new JwtSecurityTokenHandler();
-                var Token =tokenHandeler.CreateToken(TokenDescriptor);
-                return tokenHandeler.WriteToken(Token);
+            var tokenHandeler=new JwtSecurityTokenHandler();
+            var Token =tokenHandeler.CreateToken(TokenDescriptor);
+            return tokenHandeler.WriteToken(Token);
 
 
         }
+
+
     }
 }
