@@ -25,11 +25,12 @@ namespace API.Controllers
           
         // [HttpGet("")]
         // public IEnumerable <string> GetStrings(){
-        //     return new string[]{"india","us","america"};
+        //     return new string[]{"india","us","america"};[]
         // }
 
         //Get ALL Cities..........................
         [HttpGet]
+        
         public async Task <IActionResult> GetCities()
         {
             var cities= await Uow.CityRepository.GetCiteies();

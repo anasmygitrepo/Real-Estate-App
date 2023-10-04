@@ -9,6 +9,7 @@ using API.Interfaces;
 using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -41,8 +42,15 @@ var secretkey =builder.Configuration.GetSection("Appsettings:Key").Value;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfils).Assembly);
-builder.Services.AddDbContext<DataContext>(options => {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+
+//Mking database connection using environmet saved password "REAL-ESTATE-DB-PASSWORD"
+var dbuilder= new SqlConnectionStringBuilder(
+     builder.Configuration.GetConnectionString("DefaultConnection"));
+    dbuilder.Password=builder.Configuration.GetSection("REAL-ESTATE-DB-PASSWORD").Value;
+    var connectionstring=dbuilder.ConnectionString;
+    builder.Services.AddDbContext<DataContext>(options => {
+    options.UseSqlServer(connectionstring);
 
 });
 
