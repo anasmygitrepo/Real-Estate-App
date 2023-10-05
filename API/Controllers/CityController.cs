@@ -29,8 +29,8 @@ namespace API.Controllers
         // }
 
         //Get ALL Cities..........................
-        [HttpGet]
-        
+        [HttpGet("cities")]
+        [AllowAnonymous]
         public async Task <IActionResult> GetCities()
         {
             var cities= await Uow.CityRepository.GetCiteies();

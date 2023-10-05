@@ -24,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //User Authenticatiction validating..............
-var secretkey =builder.Configuration.GetSection("Appsettings:Key").Value;
+var secretkey =builder.Configuration.GetSection("AppSettings:Key").Value;
     var key=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretkey));
     builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(opt=>{
@@ -46,8 +46,8 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfils).Assembly);
 
 //Mking database connection using environmet saved password "REAL-ESTATE-DB-PASSWORD"
 var dbuilder= new SqlConnectionStringBuilder(
-     builder.Configuration.GetConnectionString("DefaultConnection"));
-    dbuilder.Password=builder.Configuration.GetSection("REAL-ESTATE-DB-PASSWORD").Value;
+     builder.Configuration.GetConnectionString("Default"));
+    dbuilder.Password=builder.Configuration.GetSection("REAL_ESTATE_DB_PASSWORD").Value;
     var connectionstring=dbuilder.ConnectionString;
     builder.Services.AddDbContext<DataContext>(options => {
     options.UseSqlServer(connectionstring);
@@ -57,15 +57,20 @@ var dbuilder= new SqlConnectionStringBuilder(
 
 var app = builder.Build();
 
+  
+
 // Configure the HTTP request pipeline.
 
 
 // app.ConfigureExceptionHandler(app.Environment);
 app.UseMiddleware<CustomExceptionHandler>();
 
+app.UseHsts();
+app.UseHttpsRedirection();
+
 app.UseCors(m=>m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-app.UseHttpsRedirection();
+
  app.UseAuthentication();
 
 app.UseAuthorization();
