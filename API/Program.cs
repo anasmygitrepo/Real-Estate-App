@@ -14,13 +14,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var myAllowspecificOrigins = "_myAllowspecificOrigins";
 // Add services to the container.
 
     builder.Services.AddControllers().AddNewtonsoftJson();
     builder.Services.AddCors();
 
     builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+    builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myAllowspecificOrigins, builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+        .AllowAnyMethod().
+        AllowAnyHeader();
+    });
+});
 
 
 //User Authenticatiction validating..............
@@ -65,8 +75,8 @@ var app = builder.Build();
 // app.ConfigureExceptionHandler(app.Environment);
 app.UseMiddleware<CustomExceptionHandler>();
 
-app.UseHsts();
-app.UseHttpsRedirection();
+// app.UseHsts();
+// app.UseHttpsRedirection();
 
 app.UseCors(m=>m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
@@ -74,6 +84,9 @@ app.UseCors(m=>m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
  app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.MapControllers();
 

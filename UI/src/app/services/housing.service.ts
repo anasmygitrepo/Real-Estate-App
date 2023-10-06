@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Iproperty } from '../property/property-list/Iproperty';
-import { IpropertyBase } from '../Models/IpropertyBase';
 import { Property } from '../Models/Property';
-
+import{environment} from '../../environments/environment'
 @Injectable({
   providedIn: 'root',
 })
 export class HousingService implements OnInit {
+
+  BaseUrl=environment.BaseUrl;
   constructor(private http: HttpClient) {}
   ngOnInit(): void {}
 
   GetCitys(): Observable<string[]> {
-    return this.http.get<string[]>('http://localhost:5075/api/City');
+    return this.http.get<string[]>(this.BaseUrl+'/City/cities'
+    );
   }
 
   GetPropertyData(SellRent?: number): Observable<Property[]> {
