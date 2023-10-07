@@ -5,13 +5,14 @@ import {
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './Nav-bar/Nav-bar.component';
 import { propertyCardComponent } from './property/property-card/property-card-component';
 import { PropertyListComponent } from './property/property-list/property-list.component';
 import { HousingService } from './services/housing.service';
+import { HttpErrorInterceptorService } from './services/httperror-interceptor.service';
 import { Routes, RouterModule } from '@angular/router';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
 import { PropertyDetailComponent } from './property/property-detail/property-detail.component';
@@ -92,6 +93,11 @@ const Approuts: Routes = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true,
+    },
     HousingService,
     AlertyfyService,
     AuthService,

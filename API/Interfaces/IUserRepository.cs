@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
+using API.Dto;
 
 namespace API.Interfaces
 {
@@ -10,7 +11,7 @@ namespace API.Interfaces
     {
         Task<User> Authenticate(string UserName,string Password);
 
-        void Register(string UserName,string Password);
+        void Register(RegisterDto user);
 
         Task<bool> UserAlreadyExists(string UserName);
     }

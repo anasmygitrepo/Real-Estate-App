@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/User.service';
+import { AuthService } from 'src/app/services/Auth.service';
 import * as intlTelInput from 'intl-tel-input';
 import {
   FormBuilder,
@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { UserDto } from 'src/app/Models/UserDto';
+import { UserRegisterDto } from 'src/app/Models/UserRegisterDto';
 import { AlertyfyService } from 'src/app/services/Alertyfy.service';
 
 @Component({
@@ -16,13 +16,13 @@ import { AlertyfyService } from 'src/app/services/Alertyfy.service';
   styleUrls: ['./user-register.component.css'],
 })
 export class UserRegisterComponent implements OnInit {
-  User: UserDto;
+  User: UserRegisterDto;
   RegistrationForm: FormGroup;
   UserSubmited: boolean;
 
   constructor(
     private FB: FormBuilder,
-    private UserService: UserService,
+    private UserService: AuthService,
     private Alertyfy: AlertyfyService
   ) {}
 
@@ -85,7 +85,7 @@ export class UserRegisterComponent implements OnInit {
     return this.RegistrationForm.get('ConfirmPassword') as FormControl;
   }
 
-  UserData(): UserDto {
+  UserData(): UserRegisterDto {
     return (this.User = {
       userName: this.GetUsername.value,
       email: this.GetEmail.value,
@@ -97,13 +97,15 @@ export class UserRegisterComponent implements OnInit {
   Onsubmit() {
     this.UserSubmited = true;
     if (this.RegistrationForm.valid) {
-      // this.User = Object.assign(this.User, this.RegistrationForm.value);
-      this.UserService.AddUser(this.UserData());
-      this.RegistrationForm.reset();
-      this.UserSubmited = false;
-      this.Alertyfy.success('you are sucessfully registerd');
-    } else {
-      this.Alertyfy.error('kindly provide required fiels');
+      this.UserService.AddUser(this.UserData()).subscribe(
+        (res: UserRegisterDto) => {
+          this.RegistrationForm.reset();
+          this.UserSubmited = false;
+          this.Alertyfy.success('you are sucessfully registerd');
+        }
+      );
+
+      //errors are handled by httperror-interceptore
     }
   }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using API.Interfaces;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
+using API.Dto;
 
 namespace API.Data.Repositories
 {
@@ -48,17 +49,20 @@ namespace API.Data.Repositories
             }
         }
 
-        public void Register(string UserName, string Password)
+        public void Register(RegisterDto User)
         {
             byte[] PasswordHash,PasswordKey;
             using (var hmac=new HMACSHA512())
             {
                 PasswordKey=hmac.Key;
-                PasswordHash=hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(Password));
+                PasswordHash=hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(User.Password));
             }
             var user=new User();
             {
-                user.Username=UserName;
+                
+                user.Username=User.Username;
+                user.Email=User.Email;
+                user.Mobail=User.Mobail;
                 user.Password=PasswordHash;
                 user.PasswordKey=PasswordKey;
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Data.Repositories;
 using API.Dto;
+using API.Errors;
 using API.Interfaces;
 using API.Models;
 using AutoMapper;
@@ -30,12 +31,19 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> UserRegister (LoginDto LonginReq)
+        public async Task<IActionResult> UserRegister (RegisterDto LonginReq)
         {
-            if(await _Uow.UserRepository.UserAlreadyExists(LonginReq.Username)){
-                return BadRequest("user already exisit try another one");
-            }
-            _Uow.UserRepository.Register(LonginReq.Username,LonginReq.Password);
+            ApiErrors apierror= new ApiErrors();
+          
+            if(await _Uow.UserRepository.UserAlreadyExists(LonginReq.Username))
+            {
+               
+                    apierror.ErrorCode=BadRequest().StatusCode;
+                    apierror.ErrorMessage="This user already taken try another one";
+                    apierror.ErrorDetails="This error appeare when provided user name already exisit";
+                    return BadRequest(apierror);
+            };
+            _Uow.UserRepository.Register(LonginReq);
             await _Uow.SaveAsync();
 
             return StatusCode(201);
@@ -45,9 +53,13 @@ namespace API.Controllers
         public async Task<IActionResult> UserLogin (LoginDto LonginReq)
         {
             var user =await _Uow.UserRepository.Authenticate(LonginReq.Username,LonginReq.Password);
-        
+
+            ApiErrors apierror= new ApiErrors();
             if(user==null){
-                return Unauthorized();
+                apierror.ErrorCode=Unauthorized().StatusCode;
+                apierror.ErrorMessage="Invalid user id or password";
+                apierror.ErrorDetails="This error appeare when provided user name or password doesnot exisist";
+                return Unauthorized(apierror);
             }
 
             var LoginRes=new LoginResponseDto();
