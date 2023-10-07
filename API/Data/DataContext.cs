@@ -14,6 +14,14 @@ namespace API.Data
             public DbSet <City> Cities {get; set;}
 
             public DbSet <User> Users{get;set;}
+
+            public DbSet <Property> Propertyes {get;set;}
+            public DbSet <PropertyType> ProperTypes {get;set;}
+            public DbSet <FurnishingType> FurnishingTypes {get;set;}
+            public DbSet <Photo> Photos {get;set;}
+            
+
+        
         
     }
 }

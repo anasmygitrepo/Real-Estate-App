@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using API.Data.Repositories;
 using API.Dto;
 using API.Errors;
+using API.Extention;
 using API.Interfaces;
 using API.Models;
 using AutoMapper;
@@ -34,14 +35,21 @@ namespace API.Controllers
         public async Task<IActionResult> UserRegister (RegisterDto LonginReq)
         {
             ApiErrors apierror= new ApiErrors();
+
+            if(LonginReq.Username.IsEmpty()|| LonginReq.Password.IsEmpty())
+            {    
+                apierror.ErrorCode=BadRequest().StatusCode;
+                apierror.ErrorMessage="User name and password canot be blank";
+                return BadRequest(apierror);
+            }
           
             if(await _Uow.UserRepository.UserAlreadyExists(LonginReq.Username))
             {
                
-                    apierror.ErrorCode=BadRequest().StatusCode;
-                    apierror.ErrorMessage="This user already taken try another one";
-                    apierror.ErrorDetails="This error appeare when provided user name already exisit";
-                    return BadRequest(apierror);
+                apierror.ErrorCode=BadRequest().StatusCode;
+                apierror.ErrorMessage="This user already taken try another one";
+                apierror.ErrorDetails="This error appeare when provided user name already exisit";
+                return BadRequest(apierror);
             };
             _Uow.UserRepository.Register(LonginReq);
             await _Uow.SaveAsync();
