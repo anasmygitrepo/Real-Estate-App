@@ -11,7 +11,7 @@
     >
       <li class="list-inline-item">
         <button
-          routerLink="/property-detail/{{property.Id}}"
+          routerLink="/property-detail/{{property.id}}"
           class="btn btn-primary"
         >
           <i class="fa-solid fa-pen-to-square"></i>
@@ -25,20 +25,20 @@
     </ul>
   </div>
   <div class="card-body p-1">
-    <h3>{{property.Name}}</h3>
-    <h4 class="mb-0">{{property.BHK}} BHK {{property.Ptype}}</h4>
-    in {{property.Name}}
-    <span *ngIf="property.Name">,</span>
-    {{property.City}}
+    <h3>{{property.name}}</h3>
+    <h4 class="mb-0">{{property.bhk}} BHK {{property.propertyType}}</h4>
+    in {{property.name}}
+    <span *ngIf="property.name">,</span>
+    {{property.city}}
     <h6 class="mt-2">
-      {{property.Ftype}}
-      <span *ngIf="property.Ftype!=='Unfurnished'">Furnished</span> | Ready to
-      move
+      {{property.furnishingType}}
+      <span *ngIf="property.furnishingType!=='Unfurnished'">Furnished</span> |
+      Ready to move
     </h6>
     <hr class="mt-0 mb-2" />
     <h6 class="mb-0">
-      price: <span id="price">{{property.Price}} USD</span> | Area:
-      <span id="sqr"> {{property.BuiltArea}} Sq Ft</span>
+      price: <span id="price">{{property.price}} USD</span> | Area:
+      <span id="sqr"> {{property.builtAria}} Sq Ft</span>
     </h6>
   </div>
 </div>

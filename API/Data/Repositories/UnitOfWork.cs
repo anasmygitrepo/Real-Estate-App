@@ -18,6 +18,8 @@ namespace API.Data.Repositories
 
         public IUserRepository UserRepository => new UserRepository(context);
 
+        public IPropertyrepository PropertyRepository =>  new PropertyRepository(context);
+
         public async Task<bool> SaveAsync()
         {
             return await context.SaveChangesAsync()>0;

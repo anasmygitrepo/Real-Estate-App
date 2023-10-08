@@ -1,16 +1,17 @@
 import { IpropertyBase } from './IpropertyBase';
 
 export class Property implements IpropertyBase {
-  Id: number;
-  Name: string;
-  Ptype: string;
-  Ftype: string;
-  BHK: string;
-  City: string;
-  SellRent: number;
+  id: number;
+  name: string;
+  furnishingType: string;
+  propertyType: string;
+  bhk: string;
+  city: string;
+  sellRent: number;
+  country: string;
   //..............................price info.......................
-  Price: number;
-  BuiltArea: number;
+  price: number;
+  builtAria: number;
   Maintenance?: number;
   CarpetAria?: number;
   Sequirity?: number;
@@ -21,7 +22,7 @@ export class Property implements IpropertyBase {
   Address2?: string;
   LandMark: string;
   //..............................otherinformations.......................
-  RTM: number;
+  readyToMove: number;
   RTMDirection: string;
   PossionOn?: Date;
   AOP?: string;

@@ -2,60 +2,63 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Property } from '../Models/Property';
-import{environment} from '../../environments/environment'
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class HousingService implements OnInit {
-
-  BaseUrl=environment.BaseUrl;
+  BaseUrl = environment.BaseUrl;
   constructor(private http: HttpClient) {}
   ngOnInit(): void {}
 
   GetCitys(): Observable<string[]> {
-    return this.http.get<string[]>(this.BaseUrl+'/City/cities'
-    );
+    return this.http.get<string[]>(this.BaseUrl + '/City/cities');
   }
 
   GetPropertyData(SellRent?: number): Observable<Property[]> {
-    return this.http.get('data/property.json').pipe(
-      map((data) => {
-        const PropertyArray: Array<Property> = [];
-        if (localStorage.getItem('Newprop')) {
-          const LocalStrData = JSON.parse(localStorage.getItem('Newprop'));
-          for (const id in LocalStrData) {
-            if (SellRent) {
-              if (
-                LocalStrData.hasOwnProperty(id) &&
-                LocalStrData[id].SellRent === SellRent
-              ) {
-                PropertyArray.push(LocalStrData[id]);
-              }
-            } else {
-              PropertyArray.push(LocalStrData[id]);
-            }
-          }
-        }
-        for (const id in data) {
-          if (SellRent) {
-            if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
-              PropertyArray.push(data[id]);
-            }
-          } else {
-            PropertyArray.push(data[id]);
-          }
-        }
-        return PropertyArray;
-      })
+    return this.http.get<Property[]>(
+      this.BaseUrl + '/Property/type/' + SellRent.toString()
     );
+
+    //for .....................local storage.............
+    // return this.http.get('data/property.json').pipe(
+    //   map((data) => {
+    //     const PropertyArray: Array<Property> = [];
+    //     if (localStorage.getItem('Newprop')) {
+    //       const LocalStrData = JSON.parse(localStorage.getItem('Newprop'));
+    //       for (const id in LocalStrData) {
+    //         if (SellRent) {
+    //           if (
+    //             LocalStrData.hasOwnProperty(id) &&
+    //             LocalStrData[id].SellRent === SellRent
+    //           ) {
+    //             PropertyArray.push(LocalStrData[id]);
+    //           }
+    //         } else {
+    //           PropertyArray.push(LocalStrData[id]);
+    //         }
+    //       }
+    //     }
+    //     for (const id in data) {
+    //       if (SellRent) {
+    //         if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
+    //           PropertyArray.push(data[id]);
+    //         }
+    //       } else {
+    //         PropertyArray.push(data[id]);
+    //       }
+    //     }
+    //     return PropertyArray;
+    //   })
+    // );
   }
 
   //Getting A single property
 
   GetProperty(Proid: number) {
-    return this.GetPropertyData().pipe(
+    return this.GetPropertyData(1).pipe(
       map((prop) => {
-        return prop.find((p) => p.Id === Proid);
+        return prop.find((p) => p.id === Proid);
       })
     );
   }

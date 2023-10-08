@@ -33,15 +33,17 @@ export class AddPropertyComponent implements OnInit {
   FurnishinType: Array<string> = ['Fully', 'Semi', 'Unfurinshed'];
 
   PropertyView: IpropertyBase = {
-    Id: null,
-    Name: '',
-    Ptype: '',
-    City: '',
-    Ftype: '',
-    BHK: '',
-    SellRent: null,
-    Price: null,
-    BuiltArea: null,
+    id: null,
+    name: '',
+    furnishingType: '',
+    city: '',
+    propertyType: '',
+    bhk: '',
+    sellRent: null,
+    price: null,
+    builtAria: null,
+    country: '',
+    readyToMove: null,
   };
   constructor(
     private AlertyfyService: AlertyfyService,
@@ -194,24 +196,24 @@ export class AddPropertyComponent implements OnInit {
   }
 
   mapProperty(): void {
-    this.property.Id = this.HousingService.PropIdGeneratore();
-    this.property.SellRent = +this.GetSellRent.value;
-    this.property.BHK = this.GetBHK.value;
-    this.property.Ptype = this.GetPType.value;
-    this.property.Ftype = this.GetFType.value;
-    this.property.Name = this.GetName.value;
-    this.property.City = this.GetCity.value;
-    this.property.Price = this.GetPrice.value;
+    this.property.id = this.HousingService.PropIdGeneratore();
+    this.property.sellRent = +this.GetSellRent.value;
+    this.property.bhk = this.GetBHK.value;
+    this.property.furnishingType = this.GetPType.value;
+    this.property.propertyType = this.GetFType.value;
+    this.property.name = this.GetName.value;
+    this.property.city = this.GetCity.value;
+    this.property.price = this.GetPrice.value;
     this.property.Sequirity = this.GetSequrity.value;
     this.property.Maintenance = this.GetMaintance.value;
-    this.property.BuiltArea = this.GetBuiltAria.value;
+    this.property.builtAria = this.GetBuiltAria.value;
     this.property.CarpetAria = this.GetCarpetArea.value;
     this.property.FlorNo = this.GetFlorNo.value;
     this.property.TotalFloor = this.GetTotalFloor.value;
     this.property.Address = this.GetAddress.value;
     this.property.LandMark = this.GetLandMark.value;
     this.property.Address2 = this.GetAddress2.value;
-    this.property.RTM = this.GetRTM.value;
+    this.property.readyToMove = this.GetRTM.value;
     this.property.RTMDirection = this.GetRTMDirection.value;
     this.property.AOP = this.GetAOP.value;
     this.property.Gated = this.GetGated.value;

@@ -30,6 +30,7 @@ export class PropertyListComponent implements OnInit {
       this.SellRent = 2;
     }
     this.service.GetPropertyData(this.SellRent).subscribe((data) => {
+      console.log(data);
       this.propertes = data;
     });
   }

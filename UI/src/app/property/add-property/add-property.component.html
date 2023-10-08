@@ -52,7 +52,7 @@
                     </div>
                     <div
                       class="btn-group"
-                      [(ngModel)]="PropertyView.BHK"
+                      [(ngModel)]="PropertyView.bhk"
                       btnRadioGroup
                       formControlName="Bhk"
                       [ngModelOptions]="{ standalone: true }"
@@ -78,7 +78,7 @@
                     <div
                       class="btn-grou"
                       btnRadioGroup
-                      [(ngModel)]="PropertyView.Ptype"
+                      [(ngModel)]="PropertyView.propertyType"
                       formControlName="Ptype"
                       [ngModelOptions]="{ standalone: true }"
                     >
@@ -102,7 +102,7 @@
                     <label>FurnishedType</label>
                     <div
                       class="btn-grou"
-                      [(ngModel)]="PropertyView.Ftype"
+                      [(ngModel)]="PropertyView.furnishingType"
                       formControlName="Ftype"
                       btnRadioGroup
                       required
@@ -131,7 +131,7 @@
                   <input
                     class="form-control"
                     formControlName="Name"
-                    [(ngModel)]="PropertyView.Name"
+                    [(ngModel)]="PropertyView.name"
                     [ngModelOptions]="{ standalone: true }"
                   />
                   <span
@@ -158,7 +158,7 @@
                   <select
                     aria-placeholder="select"
                     class="form-select"
-                    [(ngModel)]="PropertyView.City"
+                    [(ngModel)]="PropertyView.city"
                     formControlName="City"
                   >
                     <option value="">---Select city---</option>
@@ -197,7 +197,7 @@
                   <label *ngIf="GetSellrent.value == 2">Rent (in USD)</label>
                   <input
                     [ngModelOptions]="{ standalone: true }"
-                    [(ngModel)]="PropertyView.Price"
+                    [(ngModel)]="PropertyView.price"
                     type="text"
                     class="form-control"
                     formControlName="Price"
@@ -239,7 +239,7 @@
                 <div class="form-group col-12">
                   <label>Built Area (in Sqr Feet)</label>
                   <input
-                    [(ngModel)]="PropertyView.BuiltArea"
+                    [(ngModel)]="PropertyView.builtAria"
                     formControlName="BuiltArea"
                     type="text"
                     class="form-control"
@@ -382,7 +382,7 @@
 
                     <input
                       formControlName="RTM"
-                      [(ngModel)]="property.RTM"
+                      [(ngModel)]="property.readyToMove"
                       type="radio"
                       id="No"
                       [ngModelOptions]="{ standalone: true }"
