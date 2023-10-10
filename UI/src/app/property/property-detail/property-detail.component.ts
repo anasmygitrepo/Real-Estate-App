@@ -13,6 +13,7 @@ import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 export class PropertyDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  public MainPhotoUrl: string = null;
 
   property = new Property();
   public PropertyId: number;
@@ -33,34 +34,6 @@ export class PropertyDetailComponent implements OnInit {
       // max-width 800
     ];
 
-    this.galleryImages = [
-      {
-        small: 'assets/images/gallery/interior-3.jpg',
-        medium: 'assets/images/gallery/interior-3.jpg',
-        big: 'assets/images/gallery/interior-3.jpg',
-      },
-      {
-        small: 'assets/images/gallery/interior-1.jpg',
-        medium: 'assets/images/gallery/interior-1.jpg',
-        big: 'assets/images/gallery/interior-1.jpg',
-      },
-      {
-        small: 'assets/images/gallery/interior-2.jpg',
-        medium: 'assets/images/gallery/interior-2.jpg',
-        big: 'assets/images/gallery/interior-2.jpg',
-      },
-      {
-        small: 'assets/images/gallery/interior-4.jpg',
-        medium: 'assets/images/gallery/interior-4.jpg',
-        big: 'assets/images/gallery/interior-4.jpg',
-      },
-      {
-        small: 'assets/images/gallery/interior-5.jpg',
-        medium: 'assets/images/gallery/interior-5.jpg',
-        big: 'assets/images/gallery/interior-5.jpg',
-      },
-    ];
-
     //using resolver to get property-details
 
     this.PropertyId = this.activeroute.snapshot.params['Id'];
@@ -71,6 +44,8 @@ export class PropertyDetailComponent implements OnInit {
       this.property.estPossessionOn
     );
 
+    this.galleryImages = this.GetPropertyImages();
+
     // this.PropertyId = +this.activeroute.snapshot.params['Id'];
     // this.activeroute.params.subscribe((param) => {
     //   this.PropertyId = +param['Id'];
@@ -79,6 +54,22 @@ export class PropertyDetailComponent implements OnInit {
     // this.service.GetProperty(this.PropertyId).subscribe((Prop_data) => {
     //   this.property = Prop_data;
     // });
+  }
+
+  GetPropertyImages(): NgxGalleryImage[] {
+    const photoUrls: NgxGalleryImage[] = [];
+    for (let photo of this.property.photos) {
+      if (photo.isPrimary) {
+        this.MainPhotoUrl = photo.imageUrl;
+      } else {
+        photoUrls.push({
+          small: photo.imageUrl,
+          medium: photo.imageUrl,
+          big: photo.imageUrl,
+        });
+      }
+    }
+    return photoUrls;
   }
 
   IncrimentPropertyId() {

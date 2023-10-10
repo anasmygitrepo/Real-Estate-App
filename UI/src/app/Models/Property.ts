@@ -1,4 +1,5 @@
 import { IpropertyBase } from './IpropertyBase';
+import { PhotoDto } from './photoDto';
 
 export class Property implements IpropertyBase {
   id: number;
@@ -35,4 +36,5 @@ export class Property implements IpropertyBase {
   postedBy: number;
   //..............................images.......................
   Image?: string;
+  photos?: PhotoDto[];
 }

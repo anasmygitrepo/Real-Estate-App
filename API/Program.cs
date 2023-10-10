@@ -7,6 +7,7 @@ using API.Extention;
 using API.Helpers;
 using API.Interfaces;
 using API.Middleware;
+using API.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Data.SqlClient;
@@ -21,6 +22,7 @@ var myAllowspecificOrigins = "_myAllowspecificOrigins";
     builder.Services.AddCors();
 
     builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+    builder.Services.AddScoped<IphotoService,PhotoService>();
 
     builder.Services.AddCors(options =>
 {

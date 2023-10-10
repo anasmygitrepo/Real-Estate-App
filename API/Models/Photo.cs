@@ -6,10 +6,14 @@ namespace API.Models
     {
         
         [Required]
+        public string PublicId {get;set;}
+
+        [Required]
         public string ImageUrl {get;set;}
+
         public bool IsPrimary  {get;set;}
 
-        public int PropertyTypeId {get;set;}
+        public int PropertyId {get;set;}
         public Property Property {get;set;}
     }
 }

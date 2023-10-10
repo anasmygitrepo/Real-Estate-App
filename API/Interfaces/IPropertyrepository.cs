@@ -10,6 +10,8 @@ namespace API.Interfaces
     {
         Task<IEnumerable<Property>> GetProperties(int SellRent);
         Task<Property> GetPropertyDetail(int id);
+        Task<Property> GetSingleProperty(int id);
+
 
         void AddProperty(Property property);
         void DeleteProperty(int Id);

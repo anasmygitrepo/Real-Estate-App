@@ -15,6 +15,7 @@ namespace API.Helpers
                 CreateMap<PropertyType,IdTextDto>().ReverseMap();
                 CreateMap<FurnishingType,IdTextDto>().ReverseMap();
                 CreateMap<Property,AddPropertyDto>().ReverseMap();
+                CreateMap<Photo,PhotoDto>().ReverseMap();
 
 
                          //source  //destination

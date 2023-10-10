@@ -44,7 +44,19 @@ namespace API.Data.Repositories
             .Include(x=>x.propertyType)
             .Include(x=>x.FurnishingType)
             .Include(x=>x.City)
+            .Include(x=>x.Photos)
             .Where(X=>X.Id==id)
+
+            .FirstAsync();
+            return Property;
+        }
+
+          public async Task<Property> GetSingleProperty(int id)
+        {
+            var Property = await _context.Propertyes
+            .Include(x=>x.Photos)
+            .Where(X=>X.Id==id)
+
             .FirstAsync();
             return Property;
         }
