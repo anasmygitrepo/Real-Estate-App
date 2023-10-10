@@ -6,13 +6,14 @@ export interface IpropertyBase {
   name: string;
   furnishingType: string;
   propertyType: string;
-  bhk: string;
+  bhk: number;
   city: string;
   sellRent: number;
   //..............................price info.......................
   price: number;
   builtAria: number;
   Image?: string;
-  readyToMove: number;
+  readyToMove: boolean;
   country: string;
+  gated?: boolean;
 }

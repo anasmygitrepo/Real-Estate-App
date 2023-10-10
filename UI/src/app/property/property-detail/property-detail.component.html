@@ -24,10 +24,15 @@
           <strong>Build Area: {{ property.builtAria }} sqft</strong>
         </div>
         <div>
-          <strong> Carpet Aria: {{ property.CarpetAria }} sqft </strong>
+          <strong> Carpet Aria: {{ property.carpetAria }} sqft </strong>
         </div>
         <div>
           <strong> Finishing Type: {{ property.furnishingType }} </strong>
+        </div>
+        <div>
+          <strong> Available for: </strong>
+          <span *ngIf="property.sellRent == 2">Rent</span>
+          <span *ngIf="property.sellRent == 1">Buy</span>
         </div>
       </div>
       <div class="card-footer">
@@ -51,42 +56,43 @@
               </div>
               <div class="heading">
                 <strong>Floor number</strong>
-                <p>{{ property.FlorNo }}</p>
+                <p>{{ property.floorNo }} of [{{ property.totalFloors }}]</p>
               </div>
               <div class="heading">
                 <strong>Project Age</strong>
-                <p>{{ property.AOP }}</p>
+                <p>{{ property.age }}</p>
               </div>
               <div class="heading">
                 <strong>PossetioOn</strong>
-                <p>{{ property.PossionOn }}</p>
+                <p>{{ property.estPossessionOn | date }}</p>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="heading">
                 <strong>Main Entrance</strong>
-                <p>{{ property.RTMDirection }}</p>
+                <p>{{ property.mainEntrance }}</p>
               </div>
 
               <div class="heading">
                 <strong>Gated Community</strong>
-                <p>{{ property.Gated }}</p>
+                <p *ngIf="property.gated == true">Yes</p>
+                <p *ngIf="property.gated == false">No</p>
               </div>
 
               <div class="heading">
                 <strong>Security Deposit</strong>
-                <p>{{ property.Sequirity }}</p>
+                <p>{{ property.sequrity }}</p>
               </div>
               <div class="heading">
                 <strong>Maintenance</strong>
-                <p>{{ property.Maintenance }}</p>
+                <p>{{ property.maintenance }}</p>
               </div>
             </div>
           </div>
           <div class="col-sm-12">
             <div class="heading">
               <strong>Description</strong>
-              <p>{{ property.Description }}</p>
+              <p>{{ property.description }}</p>
             </div>
           </div>
         </tab>
@@ -94,9 +100,9 @@
           <div class="col-sm-12">
             <h1>Address</h1>
             <div class="heading">
-              <strong>{{ property.Address }}</strong
+              <strong>{{ property.address }}</strong
               ><br />
-              <strong> {{ property.Address2 }}</strong
+              <strong> {{ property.address2 }}</strong
               ><br />
               <strong>{{ property.city }}</strong>
             </div>

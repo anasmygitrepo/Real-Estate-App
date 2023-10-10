@@ -20,7 +20,7 @@ namespace API.Data.Repositories
         }
         public void AddProperty(Property property)
         {
-            throw new NotImplementedException();
+            _context.Propertyes.Add(property);
         }
 
         public void DeleteProperty(int Id)
@@ -30,13 +30,23 @@ namespace API.Data.Repositories
 
         public async Task<IEnumerable<Property>> GetProperties(int sellRent)
         {
-            var Propertyes= await _context.Propertyes
+            var PropertyList= await _context.Propertyes
             .Include(x=>x.propertyType)
             .Include(x=>x.FurnishingType)
             .Include(x=>x.City)
             .Where(x=>x.SellRent==sellRent).ToListAsync();
-            return Propertyes;
+            return PropertyList;
         }
 
+        public async Task<Property> GetPropertyDetail(int id)
+        {
+            var Property = await _context.Propertyes
+            .Include(x=>x.propertyType)
+            .Include(x=>x.FurnishingType)
+            .Include(x=>x.City)
+            .Where(X=>X.Id==id)
+            .FirstAsync();
+            return Property;
+        }
     }
 }

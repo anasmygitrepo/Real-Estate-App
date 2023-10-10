@@ -20,6 +20,10 @@ namespace API.Data.Repositories
 
         public IPropertyrepository PropertyRepository =>  new PropertyRepository(context);
 
+        public IpropertyTypeRepository PropertyTypeRepository =>  new PropertyTypeRepository(context);
+
+        public IPropertyFurnishingTypeRepository PropertyFurnishingTypeRepository => new PropertyFurnishingTypeRepository(context);
+
         public async Task<bool> SaveAsync()
         {
             return await context.SaveChangesAsync()>0;

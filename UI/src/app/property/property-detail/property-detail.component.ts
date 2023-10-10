@@ -67,6 +67,9 @@ export class PropertyDetailComponent implements OnInit {
     this.activeroute.data.subscribe((data: Property) => {
       this.property = data['prp'];
     });
+    this.property.age = this.service.GetPropertyAge(
+      this.property.estPossessionOn
+    );
 
     // this.PropertyId = +this.activeroute.snapshot.params['Id'];
     // this.activeroute.params.subscribe((param) => {

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Property } from '../Models/Property';
+import { IdTextDto } from 'src/app/Models/IdTextDto';
 import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
@@ -55,23 +56,31 @@ export class HousingService implements OnInit {
 
   //Getting A single property
 
-  GetProperty(Proid: number) {
-    return this.GetPropertyData(1).pipe(
-      map((prop) => {
-        return prop.find((p) => p.id === Proid);
-      })
+  GetProperty(id: number) {
+    return this.http.get<Property>(
+      this.BaseUrl + '/Property/detail/' + id.toString()
     );
   }
 
   //Adding multiple property arrays  in local storage.....................
   AddProperty(property: Property) {
-    let newprop = [property];
-    if (localStorage.getItem('Newprop')) {
-      newprop = [property, ...JSON.parse(localStorage.getItem('Newprop'))];
-    }
-    localStorage.setItem('Newprop', JSON.stringify(newprop));
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('Token'),
+      }),
+    };
+    return this.http.post(
+      this.BaseUrl + '/Property/add/',
+      property,
+      httpOptions
+    );
+    // let newprop = [property];
+    // if (localStorage.getItem('Newprop')) {
+    //   newprop = [property, ...JSON.parse(localStorage.getItem('Newprop'))];
+    // }
+    // localStorage.setItem('Newprop', JSON.stringify(newprop));
   }
-  //generating ID for each property...............
+
   PropIdGeneratore() {
     if (localStorage.getItem('PROPID')) {
       localStorage.setItem(
@@ -83,5 +92,37 @@ export class HousingService implements OnInit {
       localStorage.setItem('PROPID', '101');
       return 101;
     }
+  }
+
+  GetPropertyAge(PropertyEstablishmentDate: Date): string {
+    const Today = new Date();
+    const EstablishMentdate = new Date(PropertyEstablishmentDate);
+    let age = Today.getFullYear() - EstablishMentdate.getFullYear();
+    let month = Today.getMonth() - EstablishMentdate.getMonth();
+
+    if (
+      month < 0 ||
+      (month === 0 && Today.getDate() < EstablishMentdate.getDate())
+    ) {
+      age--;
+    }
+    if (Today < EstablishMentdate) {
+      return '0';
+    }
+    if (age === 0) {
+      return 'Lesthan a year';
+    }
+    return age.toString();
+  }
+
+  GetPropertyTypes(): Observable<IdTextDto[]> {
+    return this.http.get<IdTextDto[]>(
+      this.BaseUrl + '/PropertyType/propertytype'
+    );
+  }
+  GetPropertyFurnishTypes(): Observable<IdTextDto[]> {
+    return this.http.get<IdTextDto[]>(
+      this.BaseUrl + '/PropertyFurnishType/furnishtype'
+    );
   }
 }

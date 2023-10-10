@@ -13,6 +13,10 @@ namespace API.Interfaces
 
         IPropertyrepository PropertyRepository{get;}
 
+        IpropertyTypeRepository PropertyTypeRepository{get;}
+
+        IPropertyFurnishingTypeRepository PropertyFurnishingTypeRepository{get;}
+
 
         Task<bool> SaveAsync();
 

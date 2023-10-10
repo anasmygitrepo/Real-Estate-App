@@ -75,6 +75,7 @@
                   </div>
                   <div>
                     <label>Property Type</label>
+
                     <div
                       class="btn-grou"
                       btnRadioGroup
@@ -85,11 +86,12 @@
                       <label
                         *ngFor="let type of PropertyType"
                         class="btn btn-outline-primary m-2"
-                        [btnRadio]="type"
+                        (click)="PropertyView.propertyType = type.name"
+                        [btnRadio]="type.id"
                         tabindex="0"
                         role="button"
                         formControlName="Ptype"
-                        >{{ type }}</label
+                        >{{ type.name }}</label
                       >
                     </div>
                   </div>
@@ -111,12 +113,13 @@
                       <label
                         *ngFor="let furn of FurnishinType"
                         class="btn btn-outline-primary m-2"
-                        [btnRadio]="furn"
+                        (click)="PropertyView.furnishingType = furn.name"
+                        [btnRadio]="furn.id"
                         tabindex="0"
                         role="button"
-                        name="SellRent"
-                        >{{ furn }}</label
-                      >
+                        name="proptype"
+                        >{{ furn.name }}
+                      </label>
                     </div>
                     <div class="error-block">
                       <span *ngIf="GetFType.invalid && NextButtonclicked"
@@ -156,14 +159,17 @@
                     [ngModelOptions]="{ standalone: true }"
                   /> -->
                   <select
+                    #city
+                    (change)="
+                      PropertyView.city = city.options[city.selectedIndex].text
+                    "
                     aria-placeholder="select"
                     class="form-select"
-                    [(ngModel)]="PropertyView.city"
                     formControlName="City"
                   >
                     <option value="">---Select city---</option>
-                    <option value="{{ city.id }}" *ngFor="let city of Citys">
-                      {{ city.name }}
+                    <option *ngFor="let citys of Citys" value="{{ citys.id }}">
+                      {{ citys.name }}
                     </option>
 
                     <span class="material-icons"> filter_alt </span>
@@ -198,7 +204,7 @@
                   <input
                     [ngModelOptions]="{ standalone: true }"
                     [(ngModel)]="PropertyView.price"
-                    type="text"
+                    type="number"
                     class="form-control"
                     formControlName="Price"
                   />
@@ -219,7 +225,7 @@
                   <input
                     formControlName="Sequrity"
                     [ngModelOptions]="{ standalone: true }"
-                    type="text"
+                    type="number"
                     class="form-control"
                     name="sequrity"
                   />
@@ -228,11 +234,11 @@
                 <div *ngIf="GetSellRent.value == 2" class="form-group col-12">
                   <label>Maintenance (in USD)</label>
                   <input
-                    [ngModelOptions]="{ standalone: true }"
-                    name="Builtarea"
-                    type="text"
-                    class="form-control"
                     formControlName="Maintance"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="Maintance"
+                    type="number"
+                    class="form-control"
                   />
                 </div>
 
@@ -371,24 +377,28 @@
                 <div class="form-group col-12 mt-3">
                   <div class="form-group col-12">
                     <label>Ready to Move</label><br />
-                    <input
-                      formControlName="RTM"
-                      [ngModelOptions]="{ standalone: true }"
-                      type="radio"
-                      id="Yes"
-                      value="1"
-                    />
-                    <label class="m-2">Yes</label>
-
-                    <input
-                      formControlName="RTM"
-                      [(ngModel)]="property.readyToMove"
-                      type="radio"
-                      id="No"
-                      [ngModelOptions]="{ standalone: true }"
-                      value="2"
-                    />
-                    <label class="m-2">No</label>
+                    <div class="btn-group" btnRadioGroup>
+                      <label
+                        class="btn btn-outline-primary mr-2"
+                        btnRadio="1"
+                        tabIndex="0"
+                        role="button"
+                        (click)="PropertyView.readyToMove = true"
+                        name="RTM"
+                      >
+                        Yes
+                      </label>
+                      <label
+                        class="btn btn-outline-primary mr-2"
+                        btnRadio="2"
+                        tabIndex="0"
+                        role="button"
+                        (click)="PropertyView.readyToMove = false"
+                        name="RTM"
+                      >
+                        No
+                      </label>
+                    </div>
                   </div>
                   <span
                     class="error-block"
@@ -398,7 +408,12 @@
                   </span>
 
                   <div class="form-group col-3">
-                    <label class="mt-2 mb-2">Possession/Avaialble From</label>
+                    <label *ngIf="property.readyToMove" class="mt-2 mb-2"
+                      >Establishment Date</label
+                    >
+                    <label *ngIf="!property.readyToMove" class="mt-2 mb-2"
+                      >Possession Date</label
+                    >
                     <input
                       type="text"
                       placeholder="Select a date"
@@ -410,16 +425,6 @@
                         containerClass: 'theme-blue',
                         dateInputFormat: 'DD-MM-YYYY'
                       }"
-                    />
-                  </div>
-
-                  <div class="form-group col-12">
-                    <label class="mt-2 mb-2">Age of Property</label>
-                    <input
-                      formControlName="AOP"
-                      [ngModelOptions]="{ standalone: true }"
-                      type="text"
-                      class="form-control"
                     />
                   </div>
 
@@ -438,14 +443,16 @@
                           tabindex="0"
                           role="button"
                           name="SellRent"
+                          (click)="PropertyView.gated = true"
                           >yes</label
                         >
                         <label
                           class="btn btn-outline-primary m-1"
-                          btnRadio="2"
+                          btnRadio="0"
                           tabindex="0"
                           role="button"
                           name="SellRent"
+                          (click)="PropertyView.gated = false"
                           >No</label
                         >
                       </div>
@@ -453,7 +460,7 @@
                   </div>
 
                   <div class="form-group col-12">
-                    <label class="mt-2 mb-2">Ready to move</label>
+                    <label class="mt-2 mb-2">Manin Entrance</label>
                     <div
                       formControlName="RTMDirection"
                       class="btn-grou"
