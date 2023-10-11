@@ -26,6 +26,8 @@ namespace API.Dto
         public string Country {get;set;}
 
         public int Price {get;set;}
+
+        public ICollection<PhotoDto> Photos {get;set;}
         
     }
 }

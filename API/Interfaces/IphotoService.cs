@@ -9,5 +9,6 @@ namespace API.Interfaces
     public interface IphotoService
     {
         Task <ImageUploadResult> UpLoadPhoto(IFormFile Photo);
+        Task<DeletionResult> DeletPhotoResult(string PublicId);
     }
 }

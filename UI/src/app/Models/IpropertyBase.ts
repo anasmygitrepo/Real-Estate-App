@@ -1,4 +1,5 @@
 import { Property } from './Property';
+import { PhotoDto } from './photoDto';
 
 export interface IpropertyBase {
   //..............................basic info.......................
@@ -16,4 +17,5 @@ export interface IpropertyBase {
   readyToMove: boolean;
   country: string;
   gated?: boolean;
+  photos?: PhotoDto[];
 }

@@ -32,6 +32,13 @@ export class PropertyListComponent implements OnInit {
     this.service.GetPropertyData(this.SellRent).subscribe((data) => {
       console.log(data);
       this.propertes = data;
+      // this.propertes.forEach((x) => {
+      //   for (let photo of x.photos) {
+      //     if (photo.isPrimary) {
+      //       this.MainPhotoUrl = photo.imageUrl
+      //     }
+      //   }
+      // });
     });
   }
   SerchCity() {

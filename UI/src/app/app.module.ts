@@ -29,6 +29,7 @@ import { PropertyDetailResolverService } from './property/property-detail/proper
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FilterPipe } from './Pipes/Filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
+import { PhotoupoderComponent } from './property/photoupoder/photoupoder.component';
 
 const Approuts: Routes = [
   {
@@ -72,6 +73,7 @@ const Approuts: Routes = [
     PropertyDetailComponent,
     PageNotFoundComponent,
     UserLoginComponent,
+    PhotoupoderComponent,
     UserRegisterComponent,
     FilterPipe,
     SortPipe,

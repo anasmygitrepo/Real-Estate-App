@@ -34,6 +34,7 @@ namespace API.Data.Repositories
             .Include(x=>x.propertyType)
             .Include(x=>x.FurnishingType)
             .Include(x=>x.City)
+            .Include(x=>x.Photos)
             .Where(x=>x.SellRent==sellRent).ToListAsync();
             return PropertyList;
         }

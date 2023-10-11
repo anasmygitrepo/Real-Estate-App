@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IpropertyBase } from 'src/app/Models/IpropertyBase';
 
 @Component({
@@ -6,7 +6,16 @@ import { IpropertyBase } from 'src/app/Models/IpropertyBase';
   templateUrl: `property-card-component.html`,
   styleUrls: [`property-card-component.css`],
 })
-export class propertyCardComponent {
+export class propertyCardComponent implements OnInit {
   @Input() property: IpropertyBase;
   @Input() HideIcons: boolean;
+  public MainPhotoUrl: string = null;
+  ngOnInit(): void {
+    console.log(this.property);
+    for (let photo of this.property.photos) {
+      if (photo.isPrimary) {
+        this.MainPhotoUrl = photo.imageUrl;
+      }
+    }
+  }
 }
