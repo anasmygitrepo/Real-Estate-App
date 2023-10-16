@@ -116,7 +116,7 @@
           ></ngx-gallery>
         </tab>
         <tab heading="PhotoUpload" class="p-3">
-          <app-photoupoder [Property]="property"></app-photoupoder>
+          <app-photoupoder (ChangePrimaryPhotoEvent)="SetprimaryPhoto($event)" [Property]="property"></app-photoupoder>
         </tab>
         <tab heading="Contact">
           <h1>Contact Detail</h1>

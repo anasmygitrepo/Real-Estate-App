@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="col-sm-8" style="display: flex">
-    <input
+  <div class="col-sm-12" style="display: flex">
+    <!-- <input
       id="City-inp"
       [(ngModel)]="City"
       placeholder="Search city"
       class="form-control"
-    />
+    /> -->
+
     <button class="btn btn-success" id="serch-btn" (click)="SerchCity()">
       search
     </button>
@@ -14,8 +15,8 @@
     </button>
     <select class="form-select" [(ngModel)]="SortParams">
       <option selected><i class="fa-light fa-filter"></i></option>
-      <option value="City">City</option>
-      <option value="Price">Price</option>
+      <option value="city">City</option>
+      <option value="price">Price</option>
       <span class="material-icons"> filter_alt </span>
     </select>
     <button (click)="changeSortDirection()" class="btn btn-primary">
@@ -29,7 +30,7 @@
   <div
     *ngFor="
       let pro of propertes
-        | filterPipe : SearchCity : 'City'
+        | filterPipe : SearchCity : 'city'
         | sort : [SortParams, SortDirection]
     "
     class="shadow-lg col-sm-4 p-2"

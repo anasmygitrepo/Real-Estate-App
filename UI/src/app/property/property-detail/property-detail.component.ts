@@ -5,6 +5,7 @@ import { HousingService } from 'src/app/services/housing.service';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { AlertyfyService } from 'src/app/services/Alertyfy.service';
 @Component({
   selector: 'app-property-detail',
   templateUrl: './property-detail.component.html',
@@ -20,7 +21,8 @@ export class PropertyDetailComponent implements OnInit {
   constructor(
     private activeroute: ActivatedRoute,
     private router: Router,
-    private service: HousingService
+    private service: HousingService,
+    private AlertyfyService: AlertyfyService
   ) {}
 
   ngOnInit() {
@@ -70,6 +72,10 @@ export class PropertyDetailComponent implements OnInit {
       }
     }
     return photoUrls;
+  }
+
+    SetprimaryPhoto(newItem: string) {
+    this.MainPhotoUrl=newItem;
   }
 
   IncrimentPropertyId() {

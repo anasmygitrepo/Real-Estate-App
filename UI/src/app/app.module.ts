@@ -30,6 +30,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FilterPipe } from './Pipes/Filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { PhotoupoderComponent } from './property/photoupoder/photoupoder.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 const Approuts: Routes = [
   {
@@ -90,8 +92,9 @@ const Approuts: Routes = [
     HttpClientModule,
     RouterModule.forRoot(Approuts),
     NgxGalleryModule,
-
     FormsModule,
+    FileUploadModule,
+    NgxDropzoneModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [

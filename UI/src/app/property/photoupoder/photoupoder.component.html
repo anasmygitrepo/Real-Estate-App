@@ -9,12 +9,26 @@
       <button
         *ngIf="!photo.isPrimary"
         class="btn btn-sm btn-outline-primary m-1"
+        (click)="SetPrimary(photo)"
       >
         SetMain
       </button>
-      <button class="btn btn-sm btn-danger m-1">
-        <i class="fa fa-trash"></i>
+      <button *ngIf="!photo.isPrimary" class="btn btn-sm btn-danger m-1">
+        <i (click)="DeletePhoto(photo)" class="fa fa-trash"></i>
       </button>
     </div>
   </div>
+  <div
+    style="height: 120px"
+    ng2FileDrop
+    [uploader]="uploader"
+    class="card bg-faded p-3 text-center col-3"
+  >
+    <i class="fa fa-upload fa-2x"></i>
+    Drop phoyo heres
+  </div>
+
+  <!-- <div>
+    <input type="file" name="image" (change)="UploadPhoto($event)" />
+  </div> -->
 </div>

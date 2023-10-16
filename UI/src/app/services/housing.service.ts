@@ -4,6 +4,8 @@ import { Observable, map } from 'rxjs';
 import { Property } from '../Models/Property';
 import { IdTextDto } from 'src/app/Models/IdTextDto';
 import { environment } from '../../environments/environment';
+import { CountyDto } from '../Models/CountryDto';
+import { CityDto } from '../Models/CityDto';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,9 +13,12 @@ export class HousingService implements OnInit {
   BaseUrl = environment.BaseUrl;
   constructor(private http: HttpClient) {}
   ngOnInit(): void {}
+  getcountrys(): Observable<CountyDto[]> {
+    return this.http.get<CountyDto[]>('https://restcountries.com/v2/all');
+  }
 
-  GetCitys(): Observable<string[]> {
-    return this.http.get<string[]>(this.BaseUrl + '/City/cities');
+  GetCitys(): Observable<CityDto[]> {
+    return this.http.get<CityDto[]>(this.BaseUrl + '/City/cities');
   }
 
   GetPropertyData(SellRent?: number): Observable<Property[]> {
@@ -125,4 +130,44 @@ export class HousingService implements OnInit {
       this.BaseUrl + '/PropertyFurnishType/furnishtype'
     );
   }
+
+  SetPrimaryPhoto(propId: number, Photoid: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('Token'),
+      }),
+    };
+    return this.http.post(
+      this.BaseUrl + '/Property/set-primary-photo/' + propId + '/' + Photoid,
+      {},
+      httpOptions
+    );
+  }
+
+  DeletePhoto(propId: number, Photoid: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('Token'),
+      }),
+    };
+    return this.http.delete(
+      this.BaseUrl + '/Property/delete-photo/' + propId + '/' + Photoid,
+      httpOptions
+    );
+  }
+
+  UploadImage(propid: number, file: FormData) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('Token'),
+      }),
+    };
+    return this.http.post(
+      this.BaseUrl + '/Property/add/photo/' + propid,
+      file,
+      httpOptions
+    );
+  }
+
+  addpghoto() {}
 }

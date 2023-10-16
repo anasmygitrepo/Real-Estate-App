@@ -11,7 +11,6 @@ export class propertyCardComponent implements OnInit {
   @Input() HideIcons: boolean;
   public MainPhotoUrl: string = null;
   ngOnInit(): void {
-    console.log(this.property);
     for (let photo of this.property.photos) {
       if (photo.isPrimary) {
         this.MainPhotoUrl = photo.imageUrl;

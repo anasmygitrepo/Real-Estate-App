@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HousingService } from 'src/app/services/housing.service';
 import { ActivatedRoute } from '@angular/router';
 import { IpropertyBase } from 'src/app/Models/IpropertyBase';
+import { FormControl } from '@angular/forms';
+import { CityDto } from 'src/app/Models/CityDto';
 
 @Component({
   selector: 'app-property-list',
@@ -15,6 +17,8 @@ export class PropertyListComponent implements OnInit {
   SortDirection = 'asc';
   Today = new Date();
   propertes: Array<IpropertyBase>;
+  myControl = new FormControl('');
+  Citys: CityDto[];
 
   //SELLRENT=1  is listing all the propertys for buying
   SellRent = 1;
@@ -25,12 +29,14 @@ export class PropertyListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.service.GetCitys().subscribe((data) => {
+      this.Citys = data;
+    });
     if (this.router.snapshot.url.toString()) {
       //SELLRENT=2  is listing all the propertys for Rend
       this.SellRent = 2;
     }
     this.service.GetPropertyData(this.SellRent).subscribe((data) => {
-      console.log(data);
       this.propertes = data;
       // this.propertes.forEach((x) => {
       //   for (let photo of x.photos) {
@@ -41,6 +47,7 @@ export class PropertyListComponent implements OnInit {
       // });
     });
   }
+
   SerchCity() {
     this.SearchCity = this.City;
   }

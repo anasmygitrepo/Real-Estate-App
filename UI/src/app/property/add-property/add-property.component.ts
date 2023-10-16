@@ -14,6 +14,8 @@ import { IdTextDto } from 'src/app/Models/IdTextDto';
 import { IpropertyBase } from 'src/app/Models/IpropertyBase';
 import { HousingService } from 'src/app/services/housing.service';
 import { AlertyfyService } from 'src/app/services/Alertyfy.service';
+import { CountyDto } from 'src/app/Models/CountryDto';
+import { CityDto } from 'src/app/Models/CityDto';
 
 @Component({
   selector: 'app-add-property',
@@ -23,11 +25,12 @@ import { AlertyfyService } from 'src/app/services/Alertyfy.service';
 export class AddPropertyComponent implements OnInit {
   @ViewChild('FormTabs') formTabs: TabsetComponent;
   @ViewChild('Form') AddPropertyForm: NgForm;
+  myControl = new FormControl('');
 
   AddProperty_ReactiveForm: FormGroup;
   NextButtonclicked: boolean;
 
-  Citys: any[];
+  Citys: CityDto[];
 
   property = new Property();
 
